@@ -2,18 +2,63 @@
 
 internal class Creature
 {
-    private string name;
+    private string name = "Unknown";
 
-    public string Name { get; init; } = "NoName";
+    public string Name
+    {
+        get => name;
+        init
+        {
+            string newName = value.Trim();
+
+            if (string.IsNullOrEmpty(newName)) 
+            {
+                newName = "Unknown";
+            }
+
+            if (newName.Length > 25)
+            {
+                newName = newName.Substring(0, 25).Trim();
+            }
+
+            if ( newName.Length < 3 )
+            {
+                newName = newName.PadRight(3, '#');
+            }
+
+            if (char.IsLower(newName[0]))
+            {
+                newName = char.ToUpper(newName[0]) + newName.Substring(1);
+            }
+
+            name = newName;
+
+        }
+    }
 
     private int level;
     public int Level
     {
         get => level;
-        set => level = value > 0 ? value : 1;
+        set
+        {
+            int newLevel = value;
+
+            if (newLevel < 1)
+            {
+                newLevel = 1;
+            }
+
+            if (newLevel > 10)
+            {
+                newLevel = 10;
+            }
+
+            level = newLevel;
+        }
     }
 
-    public Creature(string name, int level)
+    public Creature(string name, int level = 1)
     {
         Name = name;
         Level = level;
@@ -21,11 +66,19 @@ internal class Creature
 
     public Creature()
     {
-        Level = 1;
+
     }
 
     public string Info => $"{Name} [{Level}]";
 
     public void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}");
+
+    public void Upgrade()
+    {
+        if (Level < 10)
+        {
+            Level++;
+        }
+    }
 
 }
