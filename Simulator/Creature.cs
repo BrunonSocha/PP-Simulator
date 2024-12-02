@@ -11,7 +11,7 @@ internal class Creature
         {
             string newName = value.Trim();
 
-            if (string.IsNullOrEmpty(newName)) 
+            if (string.IsNullOrEmpty(newName))
             {
                 newName = "Unknown";
             }
@@ -21,7 +21,7 @@ internal class Creature
                 newName = newName.Substring(0, 25).Trim();
             }
 
-            if ( newName.Length < 3 )
+            if (newName.Length < 3)
             {
                 newName = newName.PadRight(3, '#');
             }
@@ -78,6 +78,71 @@ internal class Creature
         if (Level < 10)
         {
             Level++;
+        }
+    }
+
+    public void Go(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Up:
+                Console.WriteLine($"{Name} goes up.");
+                break;
+            case Direction.Right:
+                Console.WriteLine($"{Name} goes right.");
+                break;
+            case Direction.Down:
+                Console.WriteLine($"{Name} goes down.");
+                break;
+            case Direction.Left:
+                Console.WriteLine($"{Name} goes left.");
+                break;
+        }
+    }
+
+    public void Go(Direction[] directions)
+    {
+        foreach (var direction in directions)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    Console.WriteLine($"{Name} goes up.");
+                    break;
+                case Direction.Right:
+                    Console.WriteLine($"{Name} goes right.");
+                    break;
+                case Direction.Down:
+                    Console.WriteLine($"{Name} goes down.");
+                    break;
+                case Direction.Left:
+                    Console.WriteLine($"{Name} goes left.");
+                    break;
+            }
+        }
+    }
+
+    public void Go(string directions)
+    {
+        Direction[] parsedDirections = DirectionParser.Parse(directions);
+
+        foreach (var direction in parsedDirections)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    Console.WriteLine($"{Name} goes up.");
+                    break;
+                case Direction.Right:
+                    Console.WriteLine($"{Name} goes right.");
+                    break;
+                case Direction.Down:
+                    Console.WriteLine($"{Name} goes down.");
+                    break;
+                case Direction.Left:
+                    Console.WriteLine($"{Name} goes left.");
+                    break;
+            }
         }
     }
 
