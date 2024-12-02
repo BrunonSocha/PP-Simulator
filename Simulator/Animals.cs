@@ -12,6 +12,11 @@ internal class Animals
         {
             string newDescription = value.Trim();
 
+            if (string.IsNullOrEmpty(newDescription))
+            {
+                newDescription = "Unknown";
+            }
+
             if (newDescription.Length > 15)
             {
                 newDescription = newDescription.Substring(0, 15).Trim();
