@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Birds : Animals
 {
