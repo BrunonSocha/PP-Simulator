@@ -1,6 +1,6 @@
 ﻿namespace Simulator;
 
-internal class Creature
+public abstract class Creature
 {
     private string name = "Unknown";
 
@@ -40,22 +40,7 @@ internal class Creature
     public int Level
     {
         get => level;
-        set
-        {
-            int newLevel = value;
-
-            if (newLevel < 1)
-            {
-                newLevel = 1;
-            }
-
-            if (newLevel > 10)
-            {
-                newLevel = 10;
-            }
-
-            level = newLevel;
-        }
+        set => level = Math.Clamp(value, 1, 10);
     }
 
     public Creature(string name, int level = 1)
@@ -64,21 +49,20 @@ internal class Creature
         Level = level;
     }
 
-    public Creature()
+    public Creature() : this("Unknown", 1)
     {
 
     }
 
     public string Info => $"{Name} [{Level}]";
 
-    public void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}");
+    public abstract int Power { get; }
+
+    public abstract void SayHi();
 
     public void Upgrade()
     {
-        if (Level < 10)
-        {
-            Level++;
-        }
+        Level++;
     }
 
     public void Go(Direction direction)
