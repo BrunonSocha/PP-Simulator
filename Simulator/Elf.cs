@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using System;
+
+namespace Simulator;
 
 public class Elf : Creature
 {
@@ -7,7 +9,7 @@ public class Elf : Creature
     public int Agility
     {
         get => agility;
-        set => agility = Math.Clamp(value, 0, 10);
+        set => agility = Validator.Limiter(value, 0, 10);
     }
 
     public Elf(string name, int level = 1, int agility = 1) : base(name, level)
@@ -33,5 +35,6 @@ public class Elf : Creature
 
     public override int Power => (8 * Level) + (2 * Agility);
     public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
+    public override string Info => $"{Name} [{Level}][{Agility}]";
 
 }

@@ -7,40 +7,14 @@ public abstract class Creature
     public string Name
     {
         get => name;
-        init
-        {
-            string newName = value.Trim();
-
-            if (string.IsNullOrEmpty(newName))
-            {
-                newName = "Unknown";
-            }
-
-            if (newName.Length > 25)
-            {
-                newName = newName.Substring(0, 25).Trim();
-            }
-
-            if (newName.Length < 3)
-            {
-                newName = newName.PadRight(3, '#');
-            }
-
-            if (char.IsLower(newName[0]))
-            {
-                newName = char.ToUpper(newName[0]) + newName.Substring(1);
-            }
-
-            name = newName;
-
-        }
+        init => name = Validator.Shortener(value, 3, 25, '#');
     }
 
-    private int level;
+    private int level = 1;
     public int Level
     {
         get => level;
-        set => level = Math.Clamp(value, 1, 10);
+        set => level = Validator.Limiter(value, 1, 10);
     }
 
     public Creature(string name, int level = 1)
@@ -49,12 +23,12 @@ public abstract class Creature
         Level = level;
     }
 
-    public Creature() : this("Unknown", 1)
+    public Creature()
     {
 
     }
 
-    public string Info => $"{Name} [{Level}]";
+    public abstract string Info { get; }
 
     public abstract int Power { get; }
 
@@ -63,6 +37,11 @@ public abstract class Creature
     public void Upgrade()
     {
         Level++;
+    }
+
+    public override string ToString() 
+    {
+        return $"{this.GetType().Name.ToUpper()}: {Info}";
     }
 
     public void Go(Direction direction)
