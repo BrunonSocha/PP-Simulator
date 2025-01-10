@@ -32,60 +32,48 @@ public abstract class Creature
 
     public abstract int Power { get; }
 
-    public abstract void SayHi();
+    public abstract string Greeting();
 
     public void Upgrade()
     {
         Level++;
     }
 
-    public override string ToString() 
-    {
-        return $"{this.GetType().Name.ToUpper()}: {Info}";
-    }
+    public override string ToString() => $"{this.GetType().Name.ToUpper()}: {Info}";
+    
 
-    public void Go(Direction direction)
+    // WARNING: I've decided to make it so that the creature doesn't move if the direction provided is wrong.
+    // If the Professor would like, I can change it to work like the Point does - to throw an exception instead.
+
+    public string Go(Direction direction)
     {
         switch (direction)
         {
-            case Direction.Up:
-                Console.WriteLine($"{Name} goes up.");
-                break;
-            case Direction.Right:
-                Console.WriteLine($"{Name} goes right.");
-                break;
-            case Direction.Down:
-                Console.WriteLine($"{Name} goes down.");
-                break;
-            case Direction.Left:
-                Console.WriteLine($"{Name} goes left.");
-                break;
+            case Direction.Up: return $"{Name} goes up.";
+            case Direction.Right: return $"{Name} goes right.";
+            case Direction.Down: return $"{Name} goes down.";
+            case Direction.Left: return $"{Name} goes left.";
+            default: return $"{Name} doesn't move.";
         }
     }
 
-    public void Go(Direction[] directions)
+    public string Go(Direction[] directions)
     {
         foreach (var direction in directions)
         {
             switch (direction)
             {
-                case Direction.Up:
-                    Console.WriteLine($"{Name} goes up.");
-                    break;
-                case Direction.Right:
-                    Console.WriteLine($"{Name} goes right.");
-                    break;
-                case Direction.Down:
-                    Console.WriteLine($"{Name} goes down.");
-                    break;
-                case Direction.Left:
-                    Console.WriteLine($"{Name} goes left.");
-                    break;
+                case Direction.Up: return $"{Name} goes up.";
+                case Direction.Right: return $"{Name} goes right.";
+                case Direction.Down: return $"{Name} goes down.";
+                case Direction.Left: return $"{Name} goes left.";
+                default: return $"{Name} doesn't move.";
             }
         }
+        return $"{Name} doesn't move.";
     }
 
-    public void Go(string directions)
+    public string Go(string directions)
     {
         Direction[] parsedDirections = DirectionParser.Parse(directions);
 
@@ -93,20 +81,14 @@ public abstract class Creature
         {
             switch (direction)
             {
-                case Direction.Up:
-                    Console.WriteLine($"{Name} goes up.");
-                    break;
-                case Direction.Right:
-                    Console.WriteLine($"{Name} goes right.");
-                    break;
-                case Direction.Down:
-                    Console.WriteLine($"{Name} goes down.");
-                    break;
-                case Direction.Left:
-                    Console.WriteLine($"{Name} goes left.");
-                    break;
+                case Direction.Up: return $"{Name} goes up.";
+                case Direction.Right: return $"{Name} goes right.";
+                case Direction.Down: return $"{Name} goes down.";
+                case Direction.Left: return $"{Name} goes left.";
+                default: return $"{Name} doesn't move.";
             }
         }
+        return $"{Name} doesn't move.";
     }
 
 }

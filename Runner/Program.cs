@@ -1,6 +1,7 @@
 ﻿using Simulator.Maps;
+using Simulator;
 
-namespace Simulator;
+namespace Runner;
 
 internal class Program
 {
@@ -40,7 +41,7 @@ internal class Program
             {
                 SmallSquareMap mapTest1 = new(25);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -50,7 +51,7 @@ internal class Program
             {
                 SmallSquareMap mapTest2 = new(3);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
