@@ -4,25 +4,26 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        static void Lab4b()
+        static void lab5a()
         {
-            object[] myObjects = {
-        new Animals() { Description = "dogs"},
-        new Birds { Description = "  eagles ", Size = 10 },
-        new Elf("e", 15, -3),
-        new Orc("morgash", 6, 4)
-    };
-            Console.WriteLine("\nMy objects:");
-            foreach (var o in myObjects) Console.WriteLine(o);
-            /*
-                My objects:
-                ANIMALS: Dogs <3>
-                BIRDS: Eagles (fly+) <10>
-                ELF: E## [10][0]
-                ORC: Morgash [6][4]
-            */
+            Point pointTest1 = new(10, 25);
+            Point pointTest2 = new(8, 12);
+            Rectangle rectangleTest1 = new(pointTest1, pointTest2);
+            Console.WriteLine(rectangleTest1);
+            try
+            {
+                Rectangle rectangleTest2 = new(5, 10, 5, 20);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Point pointTest3 = new(9, 22);
+            Console.WriteLine(rectangleTest1.Contains(pointTest3));
+
         }
 
-        Lab4b();
+        lab5a();
     }
 }
