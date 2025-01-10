@@ -17,6 +17,7 @@ public class Rectangle
     {
     }
 
+
     public bool Contains(Point point) => (X1  <= point.X && X2 >= point.X && Y1 <= point.Y && Y2 >= point.Y);
 
     public override string ToString() => $"({X1}, {Y1}):({X2}, {Y2})";
