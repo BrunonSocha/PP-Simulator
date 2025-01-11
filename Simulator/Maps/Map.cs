@@ -1,4 +1,5 @@
 ﻿namespace Simulator.Maps;
+using Simulator;
 
 public abstract class Map
 {

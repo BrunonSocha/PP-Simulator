@@ -1,4 +1,5 @@
 ﻿namespace Simulator;
+using Simulator.Maps;
 
 public class Orc : Creature
 {

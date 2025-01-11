@@ -1,4 +1,5 @@
 ﻿namespace Simulator;
+using Simulator.Maps;
 
 public abstract class Creature
 {
@@ -9,6 +10,8 @@ public abstract class Creature
         get => name;
         init => name = Validator.Shortener(value, 3, 25, '#');
     }
+
+
 
     private int level = 1;
     public int Level
@@ -40,55 +43,64 @@ public abstract class Creature
     }
 
     public override string ToString() => $"{this.GetType().Name.ToUpper()}: {Info}";
-    
+
 
     // WARNING: I've decided to make it so that the creature doesn't move if the direction provided is wrong.
     // If the Professor would like, I can change it to work like the Point does - to throw an exception instead.
 
-    public string Go(Direction direction)
+    public Point Position { get; set; }
+
+    public SmallMap CurrentMap { get; set; }
+
+    public void AssignMap(SmallMap map, Point startingposition)
     {
-        switch (direction)
-        {
-            case Direction.Up: return $"{Name} goes up.";
-            case Direction.Right: return $"{Name} goes right.";
-            case Direction.Down: return $"{Name} goes down.";
-            case Direction.Left: return $"{Name} goes left.";
-            default: return $"{Name} doesn't move.";
-        }
+        CurrentMap = map;
+        Position = startingposition;
+        CurrentMap.Add(this, startingposition);
     }
 
-    public string Go(List<Direction> directions)
+    public void Go(Direction direction)
     {
-        foreach (var direction in directions)
-        {
-            switch (direction)
-            {
-                case Direction.Up: return $"{Name} goes up.";
-                case Direction.Right: return $"{Name} goes right.";
-                case Direction.Down: return $"{Name} goes down.";
-                case Direction.Left: return $"{Name} goes left.";
-                default: return $"{Name} doesn't move.";
-            }
-        }
-        return $"{Name} doesn't move.";
-    }
-
-    public string Go(string directions)
-    {
-        List<Direction> parsedDirections = DirectionParser.Parse(directions);
-
-        foreach (var direction in parsedDirections)
+        if (CurrentMap is SmallSquareMap)
         {
             switch (direction)
             {
-                case Direction.Up: return $"{Name} goes up.";
-                case Direction.Right: return $"{Name} goes right.";
-                case Direction.Down: return $"{Name} goes down.";
-                case Direction.Left: return $"{Name} goes left.";
-                default: return $"{Name} doesn't move.";
+                case Direction.Up:
+                    Position = CurrentMap.Next(Position,Direction.Up);
+
+                    break;
+                case Direction.Right:
+                    Position = CurrentMap.Next(Position, Direction.Right);
+                    break;
+                case Direction.Down:
+                    Position = CurrentMap.Next(Position, Direction.Down);
+                    break;
+                case Direction.Left:
+                    Position = CurrentMap.Next(Position, Direction.Left);
+                    break;
             }
+            CurrentMap.CreaturesPositions[this] = Position;
         }
-        return $"{Name} doesn't move.";
+        else if (CurrentMap is SmallTorusMap)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    Position = CurrentMap.NextDiagonal(Position, Direction.Up);
+                    break;
+                case Direction.Right:
+                    Position = CurrentMap.NextDiagonal(Position, Direction.Right);
+                    break;
+                case Direction.Down:
+                    Position = CurrentMap.NextDiagonal(Position, Direction.Down);
+                    break;
+                case Direction.Left:
+                    Position = CurrentMap.NextDiagonal(Position, Direction.Left);
+                    break;
+            }
+            CurrentMap.CreaturesPositions[this] = Position;
+        } 
     }
 
-}
+
+} 
