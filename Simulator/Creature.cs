@@ -57,7 +57,7 @@ public abstract class Creature
         }
     }
 
-    public string Go(Direction[] directions)
+    public string Go(List<Direction> directions)
     {
         foreach (var direction in directions)
         {
@@ -75,7 +75,7 @@ public abstract class Creature
 
     public string Go(string directions)
     {
-        Direction[] parsedDirections = DirectionParser.Parse(directions);
+        List<Direction> parsedDirections = DirectionParser.Parse(directions);
 
         foreach (var direction in parsedDirections)
         {

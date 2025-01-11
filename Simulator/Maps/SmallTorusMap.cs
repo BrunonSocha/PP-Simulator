@@ -1,47 +1,30 @@
-﻿namespace Simulator.Maps;
+﻿using Simulator.Maps;
+using Simulator;
 
-public class SmallTorusMap : Map
+public class SmallTorusMap : SmallMap
 {
-    public readonly int Size;
-    public SmallTorusMap(int size)
-    {
-        Size = size;
-        if (Size < 5)
-        {
-            throw new ArgumentOutOfRangeException("The map is too small, the side length should be between 5 and 20.");
-        }
-        if (Size > 20)
-        {
-            throw new ArgumentOutOfRangeException("The map is too big, the side length should be between 5 and 20.");
-        }
-    }
 
-    public override bool Exist(Point p)
+    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
-        Rectangle smallTorusMap = new(0, 0, Size, Size);
-        return smallTorusMap.Contains(p);
     }
 
     public override Point Next(Point p, Direction d)
     {
         Point nextPoint = p.Next(d);
 
-        int newX = ((nextPoint.X % Size) + Size) % Size;
-        int newY = ((nextPoint.Y % Size) + Size) % Size;
+        int newX = ((nextPoint.X % SizeX) + SizeX) % SizeX;
+        int newY = ((nextPoint.Y % SizeY) + SizeY) % SizeY;
 
         return new Point(newX, newY);
     }
-
 
     public override Point NextDiagonal(Point p, Direction d)
     {
         Point nextPoint = p.NextDiagonal(d);
 
-        int newX = ((nextPoint.X % Size) + Size) % Size;
-        int newY = ((nextPoint.Y % Size) + Size) % Size;
+        int newX = ((nextPoint.X % SizeX) + SizeX) % SizeX;
+        int newY = ((nextPoint.Y % SizeY) + SizeY) % SizeY;
 
         return new Point(newX, newY);
     }
-
-
 }

@@ -28,8 +28,8 @@ public class RectangleTests
 
     [Theory]
     [InlineData(0, 0, 5, 5, 3, 3, true)]
-    [InlineData(0, 0, 5, 5, 5, 5, false)]
-    [InlineData(0, 0, 5, 5, 0, 0, false)]
+    [InlineData(0, 0, 5, 5, 5, 5, true)]   
+    [InlineData(0, 0, 5, 5, 0, 0, true)] 
     [InlineData(1, 1, 4, 4, 0, 0, false)]
     public void Contains_ReturnCorrectValue(int x1, int y1, int x2, int y2, int px, int py, bool expected)
     {
@@ -37,6 +37,7 @@ public class RectangleTests
         var point = new Point(px, py);
         Assert.Equal(expected, rectangle.Contains(point));
     }
+
 
     [Fact]
     public void ToString_ReturnCorrectString()

@@ -39,7 +39,7 @@ internal class Program
             // tries to create a map too big. the error message from the exception caught tells the user it's too big.
             try
             {
-                SmallSquareMap mapTest1 = new(25);
+                SmallSquareMap mapTest1 = new(25, 15);
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ internal class Program
             // tries to create a map too small. the error message from the exception caught tells the user it's too big.
             try
             {
-                SmallSquareMap mapTest2 = new(3);
+                SmallSquareMap mapTest2 = new(3, 4);
             }
             catch (Exception ex)
             {
@@ -57,9 +57,9 @@ internal class Program
             }
 
             // creates a map of size 19 and a point. The point is on the top of the map and can't go further.
-            SmallSquareMap mapTest3 = new(19);
+            SmallSquareMap mapTest3 = new(19, 19);
             Point pointMapTest = new(1, 19);
-            Console.WriteLine(mapTest3.Size);
+            Console.WriteLine(mapTest3.SizeX);
             Console.WriteLine(mapTest3.Exist(pointMapTest));
             Console.WriteLine(mapTest3.Next(pointMapTest, Direction.Up));
             Console.WriteLine(mapTest3.NextDiagonal(pointMapTest, Direction.Up));

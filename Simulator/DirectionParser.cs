@@ -2,7 +2,7 @@
 
 internal static class DirectionParser
 {
-    public static Direction[] Parse(string directions)
+    public static List<Direction> Parse(string directions)
     {
         var newDirections = new List<Direction>();
 
@@ -30,7 +30,7 @@ internal static class DirectionParser
             }
         }
 
-        return newDirections.ToArray();
+        return newDirections;
 
     }
 }

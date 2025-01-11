@@ -1,31 +1,25 @@
 ﻿namespace Simulator.Maps;
 
-/// <summary>
-/// Map of points.
-/// </summary>
 public abstract class Map
 {
-    /// <summary>
-    /// Check if a given point belongs to the map.
-    /// </summary>
-    /// <param name="p">Point to check.</param>
-    /// <returns></returns>
-    public abstract bool Exist(Point p);
+    public readonly int SizeX, SizeY;
+    public Rectangle Surface { get; }
 
-    /// <summary>
-    /// Next position to the point in a given direction.
-    /// </summary>
-    /// <param name="p">Starting point.</param>
-    /// <param name="d">Direction.</param>
-    /// <returns>Next point.</returns>
+    protected Map(int sizeX, int sizeY)
+    {
+        if (sizeX < 5 || sizeY < 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sizeX), "The map dimensions must be at least 5x5.");
+        }
+
+        SizeX = sizeX;
+        SizeY = sizeY;
+        Surface = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
+    }
+
+    public bool Exist(Point p) => Surface.Contains(p);
+
     public abstract Point Next(Point p, Direction d);
 
-    /// <summary>
-    /// Next diagonal position to the point in a given direction 
-    /// rotated 45 degrees clockwise.
-    /// </summary>
-    /// <param name="p">Starting point.</param>
-    /// <param name="d">Direction.</param>
-    /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 }
