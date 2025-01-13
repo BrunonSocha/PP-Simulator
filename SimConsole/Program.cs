@@ -7,7 +7,7 @@ internal class SimConsole
     static void Main(string[] args)
     {
         SmallMap Mapka = new SmallSquareMap(10, 10);
-        List<Creature> elves = new List<Creature>
+        List<IMappable> elves = new List<IMappable>
             {
                 new Elf("Legolas", level: 5, agility: 8),
                 new Orc("Orkoid", level: 7, rage: 2),

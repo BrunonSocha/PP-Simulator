@@ -10,7 +10,7 @@ namespace SimConsole
     {
         internal int SizeX { get; set; }
         internal int SizeY { get; set; }
-        internal List<Creature> Creatures { get; set; }
+        internal List<IMappable> Creatures { get; set; }
         internal List<Point> Points { get; set; }
         internal SmallMap CurrentMap { get; }
 
@@ -29,7 +29,7 @@ namespace SimConsole
 
         // jesus christ
 
-        private Creature GetCreatureAtPosition(int x, int y)
+        private IMappable GetCreatureAtPosition(int x, int y)
         {
             foreach (var creature in Creatures)
             {
@@ -44,7 +44,7 @@ namespace SimConsole
 
         private char GetSymbolAtPosition(int x, int y)
         {
-            List<Creature> creaturesAtPosition = new();
+            List<IMappable> creaturesAtPosition = new();
 
             foreach (var creature in Creatures)
             {

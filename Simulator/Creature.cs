@@ -1,17 +1,18 @@
 ﻿namespace Simulator;
 using Simulator.Maps;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     private string name = "Unknown";
 
-    public abstract char Symbol { get; }
+    public virtual char Symbol { get; }
+
+
     public string Name
     {
         get => name;
         init => name = Validator.Shortener(value, 3, 25, '#');
     }
-
 
 
     private int level = 1;
@@ -53,13 +54,6 @@ public abstract class Creature
 
     public SmallMap CurrentMap { get; set; }
 
-    public void AssignMap(SmallMap map, Point startingposition)
-    {
-        CurrentMap = map;
-        Position = startingposition;
-        CurrentMap.Add(this, startingposition);
-    }
-
     public void Go(Direction direction)
     {
         if (CurrentMap is SmallSquareMap)
@@ -67,7 +61,7 @@ public abstract class Creature
             switch (direction)
             {
                 case Direction.Up:
-                    Position = CurrentMap.Next(Position,Direction.Up);
+                    Position = CurrentMap.Next(Position, Direction.Up);
 
                     break;
                 case Direction.Right:
@@ -100,8 +94,12 @@ public abstract class Creature
                     break;
             }
             CurrentMap.CreaturesPositions[this] = Position;
-        } 
+        }
     }
-
-
-} 
+    public void AssignMap(SmallMap map, Point startingposition)
+    {
+        CurrentMap = map;
+        Position = startingposition;
+        CurrentMap.Add(this, startingposition);
+    }
+}

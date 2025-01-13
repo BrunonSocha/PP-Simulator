@@ -6,6 +6,8 @@ public abstract class Map
     public readonly int SizeX, SizeY;
     public Rectangle Surface { get; }
 
+    public Point Position { get; }
+
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5 || sizeY < 5)
@@ -15,6 +17,7 @@ public abstract class Map
 
         SizeX = sizeX;
         SizeY = sizeY;
+        Position = Position;
         Surface = new Rectangle(1, 1, SizeX, SizeY);
     }
 
@@ -24,12 +27,12 @@ public abstract class Map
 
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public Dictionary<Creature, Point> CreaturesPositions { get; set; }
+    public Dictionary<IMappable, Point> CreaturesPositions { get; set; }
 
 
-    public void Add(Creature creature, Point position)
+    public void Add(IMappable creature, Point position)
     {
-        CreaturesPositions ??= new Dictionary<Creature, Point>();
+        CreaturesPositions ??= new Dictionary<IMappable, Point>();
 
         if (CreaturesPositions.ContainsKey(creature))
         {
@@ -42,7 +45,7 @@ public abstract class Map
         CreaturesPositions.Add(creature, position);
     }
 
-    public void Remove(Creature creature)
+    public void Remove(IMappable creature)
     {
         if (CreaturesPositions.ContainsKey(creature))
         {
@@ -56,7 +59,7 @@ public abstract class Map
         }
     }
 
-    public void Move(Creature creature, Point position)
+    public void Move(IMappable creature, Point position)
     {
         if (CreaturesPositions == null)
         {
@@ -75,7 +78,7 @@ public abstract class Map
         {
             throw new Exception("This point doesn't exist on the map.");
         }
-        var creaturesAtPosition = new List<Creature>();
+        var creaturesAtPosition = new List<IMappable>();
 
         foreach (var keyvalue in CreaturesPositions)
         {
@@ -95,7 +98,7 @@ public abstract class Map
         {
             throw new Exception("This point doesn't exist on the map.");
         }
-        var creaturesAtPosition = new List<Creature>();
+        var creaturesAtPosition = new List<IMappable>();
 
         foreach (var keyvalue in CreaturesPositions)
         {

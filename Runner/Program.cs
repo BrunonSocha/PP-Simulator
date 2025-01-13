@@ -18,7 +18,7 @@ internal class Program
         testmap.Move(testorc, endpos);
         Console.WriteLine(testorc.Position);
         Console.WriteLine(testmap.At(endpos));
-        List<Creature> elves = new List<Creature>
+        List<IMappable> elves = new List<IMappable>
             {
                 new Elf("Legolas", level: 5, agility: 8),
                 new Elf("Thranduil", level: 7, agility: 6),
@@ -39,10 +39,6 @@ internal class Program
         simulationtest.Turn();
         simulationtest.Turn();
 
-        foreach (var creature in testmap.CreaturesPositions)
-        {
-            Console.WriteLine($"{creature.Key.Name} is at {creature.Value}");
-        }
 
     }
 }
