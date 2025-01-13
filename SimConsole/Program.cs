@@ -10,18 +10,14 @@ internal class SimConsole
         List<Creature> elves = new List<Creature>
             {
                 new Elf("Legolas", level: 5, agility: 8),
-                new Orc("Dzbanoid", level: 7, rage: 2),
-                new Elf("Galadriel", level: 10, agility: 9),
-                new Elf("Elrond", level: 8, agility: 7),
+                new Orc("Orkoid", level: 7, rage: 2),
             };
 
-        Point spoint = new(5, 2);
-        Point dpoint = new(5, 5);
+        Point dpoint = new(7, 5);
         Point rpoint = new(8, 4);
-        Point wpoint = new(3, 3);
-        List<Point> points = new List<Point> { spoint, dpoint, rpoint, wpoint };
-        var simulation = new Simulation(Mapka, elves, points, "rdulrdul");
-
-        
+        List<Point> points = new List<Point> { dpoint, rpoint };
+        var simulation = new Simulation(Mapka, elves, points, "ruulrdulxx");
+        MapVisualizer startprog = new(simulation);
+        startprog.VisualizeSimulation();
     }
 }

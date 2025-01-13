@@ -32,7 +32,7 @@ public class Simulation
     /// <summary>
     /// Parsed moves kept as a list of directions.
     /// </summary>
-    private List<Direction> ParsedMoves { get; }
+    public List<Direction> ParsedMoves { get; }
 
     /// <summary>
     /// Has all moves been done?
@@ -101,7 +101,7 @@ public class Simulation
         CurrentMove = ParsedMoves[TurnCount];
         CurrentMoveName = CurrentMove.ToString().ToLower();
         CurrentCreature.Go(CurrentMove);
-        Console.WriteLine($"{CurrentCreature} moves {CurrentMoveName}");
+        Console.WriteLine($"{CurrentCreature} moves {CurrentMoveName}. Now the current position is {CurrentCreature.Position}");
         TurnCount++;
         if (TurnCount == ParsedMoves.Count)
         {

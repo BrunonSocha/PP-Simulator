@@ -39,5 +39,10 @@ internal class Program
         simulationtest.Turn();
         simulationtest.Turn();
 
+        foreach (var creature in testmap.CreaturesPositions)
+        {
+            Console.WriteLine($"{creature.Key.Name} is at {creature.Value}");
+        }
+
     }
 }

@@ -14,40 +14,72 @@ namespace SimConsole
         internal List<Point> Points { get; set; }
         internal SmallMap CurrentMap { get; }
 
-        internal MapVisualizer(SmallMap map, List<Creature> creatures, List<Point> points)
+        internal Simulation Simulation { get; set; }
+
+        internal MapVisualizer(Simulation simulation)
         {
-            SizeX = map.SizeX;
-            SizeY = map.SizeY;
-            CurrentMap = map;
-            Creatures = creatures;
-            Points = points;
+            Simulation = simulation;
+            SizeX = simulation.CurrentMap.SizeX;
+            SizeY = simulation.CurrentMap.SizeY;
+            CurrentMap = simulation.CurrentMap;
+            Creatures = simulation.Creatures;
+            Points = simulation.Positions;
             Console.OutputEncoding = Encoding.UTF8;
         }
 
+        // jesus christ
+
         private Creature GetCreatureAtPosition(int x, int y)
         {
-            for (int i = 0; i < Creatures.Count; i++)
+            foreach (var creature in Creatures)
             {
-                if (Points[i].X == x+1 && Points[i].Y == y)
+                var position = creature.Position;
+                if (position.X == x+1 && position.Y == y+1)
                 {
-                    return Creatures[i];
+                    return creature;
                 }
             }
             return null;
         }
 
+        private char GetSymbolAtPosition(int x, int y)
+        {
+            List<Creature> creaturesAtPosition = new();
+
+            foreach (var creature in Creatures)
+            {
+                var position = creature.Position;
+                if (position.X == x + 1 && position.Y == y + 1)
+                {
+                    creaturesAtPosition.Add(creature);
+                }
+            }
+
+            if (creaturesAtPosition.Count > 1)
+            {
+                return 'X';
+            }
+            else if (creaturesAtPosition.Count == 1)
+            {
+                return creaturesAtPosition[0].Symbol;
+            }
+
+            return ' ';
+        }
+
+
         public void Draw()
         {
-            for (int y = 0; y < SizeY; y++)
+            for (int y = SizeY - 1; y >= 0; y--)
             {
-                if (y == 0)
+                if (y == SizeY - 1)
                 {
                     DrawTopBorder();
                 }
 
                 DrawMiddleRow(y);
 
-                if (y == SizeY - 1)
+                if (y == 0)
                 {
                     DrawBottomBorder();
                 }
@@ -91,15 +123,8 @@ namespace SimConsole
             Console.Write(Box.Vertical);
             for (int col = 0; col < SizeX; col++)
             {
-                var creature = GetCreatureAtPosition(col, row);
-                if (creature != null)
-                {
-                    Console.Write($" {creature.Symbol} ");
-                }
-                else
-                {
-                    Console.Write("   ");
-                }
+                char symbol = GetSymbolAtPosition(col, row);
+                Console.Write($" {symbol} ");
                 Console.Write(Box.Vertical);
             }
             Console.WriteLine();
@@ -117,6 +142,15 @@ namespace SimConsole
                 }
             }
             Console.WriteLine(Box.MidRight);
+        }
+
+        public void VisualizeSimulation()
+        {
+            for (int x = 0; x <= Simulation.ParsedMoves.Count; x++)
+            {
+                this.Draw();
+                Simulation.Turn();
+            }
         }
 
     }
