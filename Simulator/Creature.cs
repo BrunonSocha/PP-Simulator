@@ -56,45 +56,26 @@ public abstract class Creature : IMappable
 
     public void Go(Direction direction)
     {
-        if (CurrentMap is SmallSquareMap)
-        {
-            switch (direction)
-            {
-                case Direction.Up:
-                    Position = CurrentMap.Next(Position, Direction.Up);
 
-                    break;
-                case Direction.Right:
-                    Position = CurrentMap.Next(Position, Direction.Right);
-                    break;
-                case Direction.Down:
-                    Position = CurrentMap.Next(Position, Direction.Down);
-                    break;
-                case Direction.Left:
-                    Position = CurrentMap.Next(Position, Direction.Left);
-                    break;
-            }
-            CurrentMap.CreaturesPositions[this] = Position;
-        }
-        else if (CurrentMap is SmallTorusMap)
-        {
-            switch (direction)
+        switch (direction)
             {
-                case Direction.Up:
-                    Position = CurrentMap.NextDiagonal(Position, Direction.Up);
-                    break;
-                case Direction.Right:
-                    Position = CurrentMap.NextDiagonal(Position, Direction.Right);
-                    break;
-                case Direction.Down:
-                    Position = CurrentMap.NextDiagonal(Position, Direction.Down);
-                    break;
-                case Direction.Left:
-                    Position = CurrentMap.NextDiagonal(Position, Direction.Left);
-                    break;
+            case Direction.Up:
+                Position = CurrentMap.Next(Position, Direction.Up);
+                break;
+            case Direction.Right:
+                Position = CurrentMap.Next(Position, Direction.Right);
+                break;
+            case Direction.Down:
+                Position = CurrentMap.Next(Position, Direction.Down);
+                break;
+            case Direction.Left:
+                Position = CurrentMap.Next(Position, Direction.Left);
+                break;
             }
-            CurrentMap.CreaturesPositions[this] = Position;
-        }
+        CurrentMap.CreaturesPositions[this] = Position;
+
+
+        
     }
     public void AssignMap(SmallMap map, Point startingposition)
     {

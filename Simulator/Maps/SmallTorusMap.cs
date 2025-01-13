@@ -12,8 +12,8 @@ public class SmallTorusMap : SmallMap
     {
         Point nextPoint = p.Next(d);
 
-        int newX = ((nextPoint.X % SizeX) + SizeX) % SizeX;
-        int newY = ((nextPoint.Y % SizeY) + SizeY) % SizeY;
+        int newX = ((nextPoint.X - 1 + SizeX) % SizeX) + 1;
+        int newY = ((nextPoint.Y - 1 + SizeY) % SizeY) + 1;
 
         return new Point(newX, newY);
     }
@@ -22,8 +22,8 @@ public class SmallTorusMap : SmallMap
     {
         Point nextPoint = p.NextDiagonal(d);
 
-        int newX = ((nextPoint.X % SizeX) + SizeX) % SizeX;
-        int newY = ((nextPoint.Y % SizeY) + SizeY) % SizeY;
+        int newX = ((nextPoint.X - 1 + SizeX) % SizeX) + 1;
+        int newY = ((nextPoint.Y - 1 + SizeY) % SizeY) + 1;
 
         return new Point(newX, newY);
     }
