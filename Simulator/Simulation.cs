@@ -74,35 +74,38 @@ public class Simulation
         CurrentMap = map;
         Creatures = creatures;
         ParsedMoves = DirectionParser.Parse(moves);
-
-
-    }
-    public void StartSimulation()
-    {
         for (int i = 0; i < Creatures.Count; i++)
         {
             Creatures[i].AssignMap(CurrentMap, Positions[i]);
         }
-        for (int i = 0; i < ParsedMoves.Count; i++)
-        {
-            Creature CurrentCreature = Creatures[i % Creatures.Count];
-            CurrentMove = ParsedMoves[i];
-            CurrentMoveName = CurrentMove.ToString().ToLower();
-            Turn(CurrentCreature, CurrentMove);
-            Console.WriteLine($"{CurrentCreature} moves {CurrentMoveName}");
-        }
+
+
     }
+
 
     /// <summary>
     /// Makes one move of current creature in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
-    public void Turn(Creature CurrentCreature, Direction CurrentMove) 
+    /// 
+
+    private int TurnCount = 0;
+    public void Turn() 
     {
-        CurrentCreature.Go(CurrentMove);
         if (Finished)
         {
             throw new Exception("The simulation has finished.");
+        }
+
+        Creature CurrentCreature = Creatures[TurnCount % Creatures.Count];
+        CurrentMove = ParsedMoves[TurnCount];
+        CurrentMoveName = CurrentMove.ToString().ToLower();
+        CurrentCreature.Go(CurrentMove);
+        Console.WriteLine($"{CurrentCreature} moves {CurrentMoveName}");
+        TurnCount++;
+        if (TurnCount == ParsedMoves.Count)
+        {
+            Finished = true;
         }
     }
 }

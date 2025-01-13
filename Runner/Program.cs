@@ -34,7 +34,10 @@ internal class Program
 
 
         Simulation simulationtest = new(testmap, elves, points, "rdlurdur");
-        simulationtest.StartSimulation();
-        
+        simulationtest.Turn();
+        simulationtest.Turn();
+        simulationtest.Turn();
+        simulationtest.Turn();
+
     }
 }
