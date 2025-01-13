@@ -4,6 +4,8 @@ using Simulator.Maps;
 public class Elf : Creature
 {
 
+    public override char Symbol => 'E';
+
     private int agility;
     public int Agility
     {

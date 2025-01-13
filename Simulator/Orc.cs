@@ -4,6 +4,8 @@ using Simulator.Maps;
 public class Orc : Creature
 {
 
+    public override char Symbol => 'O';
+
     private int rage;
     public int Rage
     {

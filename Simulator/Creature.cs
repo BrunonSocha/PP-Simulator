@@ -5,6 +5,7 @@ public abstract class Creature
 {
     private string name = "Unknown";
 
+    public abstract char Symbol { get; }
     public string Name
     {
         get => name;
